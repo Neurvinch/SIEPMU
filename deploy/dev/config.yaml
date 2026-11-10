@@ -1,0 +1,23 @@
+# Development configuration: plain HTTP on localhost (a secure context for
+# WebAuthn) standing in for the Ring 0 TLS terminator, SoftHSM2 as the HSM.
+public_origin: http://localhost:8080
+rp_id: localhost
+listen: 127.0.0.1:8080
+tls: upstream
+mesh_listen: 127.0.0.1:9443
+data_dir: /var/lib/siepmu/dev
+web_dir: ../../web/dist
+postgres_dsn: postgres://siepmu:siepmu@localhost/siepmu
+redis_addr: 127.0.0.1:6379
+hsm:
+  module_path: /usr/lib/softhsm/libsofthsm2.so
+  token_label: siepmu-dev
+  pin: "1234"          # override with SIEPMU_HSM_PIN outside development
+geofences:
+  - {name: India, min_lat: 6.0, max_lat: 37.5, min_lon: 68.0, max_lon: 97.5}
+guard:
+  diode_addr: 127.0.0.1:9700
+  receiver_kem_pub: ""   # siepmuctl keygen --type kem
+  dirty_words: ["NOFORN", "EYES ONLY"]
+monitor:
+  wazuh_log_file: /var/lib/siepmu/dev/siepmu-events.json

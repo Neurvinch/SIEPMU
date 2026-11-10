@@ -22,9 +22,9 @@ type NIST struct{}
 
 func NewNIST() *NIST { return &NIST{} }
 
-func (NIST) Name() string     { return "nist-public-v1" }
-func (NIST) KEM() KEM         { return xwingKEM{} }
-func (NIST) AEAD() AEAD       { return aesGCM{} }
+func (NIST) Name() string       { return "nist-public-v1" }
+func (NIST) KEM() KEM           { return xwingKEM{} }
+func (NIST) AEAD() AEAD         { return aesGCM{} }
 func (NIST) Verifier() Verifier { return hybridVerifier{} }
 
 func (NIST) Hash384(data []byte) []byte {

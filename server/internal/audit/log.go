@@ -32,13 +32,13 @@ const Origin = "siepmu.iaf/audit/v1"
 // Entry is one audit record. It is serialised to canonical JSON (struct
 // field order, no HTML escaping) before hashing.
 type Entry struct {
-	Time     time.Time         `json:"time"`
-	Actor    string            `json:"actor"`
-	Action   string            `json:"action"`
-	Resource string            `json:"resource,omitempty"`
-	Outcome  string            `json:"outcome"`
-	IP       string            `json:"ip,omitempty"`
-	Details  map[string]any    `json:"details,omitempty"`
+	Time     time.Time      `json:"time"`
+	Actor    string         `json:"actor"`
+	Action   string         `json:"action"`
+	Resource string         `json:"resource,omitempty"`
+	Outcome  string         `json:"outcome"`
+	IP       string         `json:"ip,omitempty"`
+	Details  map[string]any `json:"details,omitempty"`
 }
 
 // TreeHead is a signed checkpoint.

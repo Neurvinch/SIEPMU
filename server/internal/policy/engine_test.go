@@ -60,7 +60,11 @@ func TestPolicy(t *testing.T) {
 			i.Approval.Commander = true
 		}, true, ""},
 		{"admin needs role", func(i *Input) { i.Resource = Resource{Type: "admin"}; i.Action = "manage" }, false, "no rule"},
-		{"admin role", func(i *Input) { i.Resource = Resource{Type: "admin"}; i.Action = "manage"; i.Subject.Roles = []string{"admin"} }, true, ""},
+		{"admin role", func(i *Input) {
+			i.Resource = Resource{Type: "admin"}
+			i.Action = "manage"
+			i.Subject.Roles = []string{"admin"}
+		}, true, ""},
 		{"breakglass self-approval", func(i *Input) {
 			i.Resource = Resource{Type: "breakglass", Originator: "u1"}
 			i.Action = "approve"

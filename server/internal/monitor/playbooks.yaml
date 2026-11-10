@@ -1,0 +1,57 @@
+# SOAR playbooks: correlation rule id -> containment actions executed
+# automatically when an incident opens. Actions:
+#   block_ip <duration>    add the source IP to the Ring 1 block list
+#   revoke_sessions        terminate every live session of the subject
+#   raise_risk <points>    add decaying UEBA risk (feeds ABAC posture ceiling)
+#   notify <role>          in-app notification to role (commander = subject's unit)
+#   webhook                POST the incident to monitor.webhook_url
+brute_force_auth:
+  - block_ip 1h
+  - raise_risk 30
+  - notify soc
+impossible_travel:
+  - revoke_sessions
+  - raise_risk 50
+  - notify soc
+  - notify commander
+policy_probe:
+  - raise_risk 25
+  - notify soc
+bulk_export:
+  - revoke_sessions
+  - raise_risk 60
+  - notify soc
+  - notify commander
+  - webhook
+hsm_unwrap_burst:
+  - raise_risk 40
+  - notify soc
+  - webhook
+credential_compromise:
+  - revoke_sessions
+  - raise_risk 80
+  - notify soc
+  - notify commander
+  - webhook
+gateway_flood:
+  - block_ip 15m
+  - notify soc
+sensor_high:
+  - notify soc
+  - webhook
+sensor_critical:
+  - block_ip 1h
+  - notify soc
+  - webhook
+privilege_change:
+  - notify soc
+  - notify auditor
+breakglass_activation:
+  - notify auditor
+file_integrity:
+  - raise_risk 30
+  - notify soc
+ueba_anomaly:
+  - notify soc
+bridge_rejects:
+  - notify soc
